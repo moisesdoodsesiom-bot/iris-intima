@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iris Íntima | Haute Lingerie & Moda Íntima</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#D4AF37',
+                            goldHover: '#AA820A',
+                            pinkDark: '#2C0E18',
+                            pinkSoft: '#FFF5F8',
+                            pinkAccent: '#E8A5C8',
+                            roseGold: '#B76E79',
+                            dark: '#121212',
+                            darkSecondary: '#1E1E1E',
+                            cardBg: '#191919'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #121212;
+            color: #F3F4F6;
+        }
+        .font-serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FDF0A6 0%, #D4AF37 50%, #997A15 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-glow:hover {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1E1E1E;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-brand-dark min-h-screen flex flex-col justify-between selection:bg-brand-gold selection:text-brand-dark">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-gradient-to-r from-brand-pinkDark via-brand-darkSecondary to-brand-pinkDark text-brand-pinkAccent text-xs py-2 text-center border-b border-brand-gold/20 tracking-widest uppercase font-medium px-4">
+        <i class="fa-solid fa-sparkles mr-1 text-brand-gold"></i> Frete Grátis para todo o Brasil em compras acima de R$ 290 | Parcele em até 6x no cartão
+    </div>
+
+    <!-- HEADER & NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-brand-dark/95 backdrop-blur-md border-b border-white/10 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden text-gray-300 hover:text-brand-gold focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+
+                <!-- Brand Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="group flex flex-col items-center">
+                        <span class="font-serif-title text-2xl sm:text-3xl font-bold tracking-wider gold-gradient-text">IRIS ÍNTIMA</span>
+                        <span class="text-[9px] tracking-[0.3em] text-gray-400 uppercase group-hover:text-brand-pinkAccent transition-colors">Haute Lingerie & Collection</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu Links -->
+                <nav class="hidden md:flex space-x-8 text-sm font-medium tracking-wide">
+                    <a href="#hero" class="text-gray-200 hover:text-brand-gold transition-colors">Início</a>
+                    <a href="#catalogo" class="text-gray-200 hover:text-brand-gold transition-colors">Catálogo Completo</a>
+                    <a href="#sobre" class="text-gray-200 hover:text-brand-gold transition-colors">Diferenciais</a>
+                    <a href="#contato" class="text-gray-200 hover:text-brand-gold transition-colors">Contato</a>
+                </nav>
+
+                <!-- Right Utility Icons (Admin & Cart) -->
+                <div class="flex items-center space-x-4">
+                    
+                    <!-- Admin Drawer Button -->
+                    <button id="adminToggleBtn" onclick="toggleAdminDrawer()" class="flex items-center gap-2 bg-brand-pinkDark/80 border border-brand-gold/40 text-brand-gold px-3.5 py-1.5 rounded-full text-xs font-semibold hover:bg-brand-gold hover:text-brand-dark transition-all duration-300 shadow-md">
+                        <i class="fa-solid fa-sliders"></i>
+                        <span class="hidden sm:inline">Painel Admin</span>
+                    </button>
+
+                    <!-- Cart Button -->
+                    <button id="cartBtn" onclick="toggleCartDrawer()" class="relative text-gray-200 hover:text-brand-gold transition-colors p-2">
+                        <i class="fa-solid fa-bag-shopping text-xl"></i>
+                        <span id="cartCountBadge" class="absolute top-0 right-0 bg-brand-gold text-brand-dark text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center opacity-0 transition-opacity">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-brand-darkSecondary border-b border-white/10 px-4 pt-2 pb-6 space-y-3">
+            <a href="#hero" class="block text-gray-200 hover:text-brand-gold text-base py-1">Início</a>
+            <a href="#catalogo" class="block text-gray-200 hover:text-brand-gold text-base py-1">Catálogo Completo</a>
+            <a href="#sobre" class="block text-gray-200 hover:text-brand-gold text-base py-1">Diferenciais</a>
+            <a href="#contato" class="block text-gray-200 hover:text-brand-gold text-base py-1">Contato</a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- HERO SECTION -->
+        <section id="hero" class="relative bg-gradient-to-b from-brand-dark to-brand-darkSecondary py-16 lg:py-24 overflow-hidden">
+            <div class="absolute inset-0 opacity-20 pointer-events-none">
+                <div class="absolute -top-40 -left-40 w-96 h-96 bg-brand-pinkAccent rounded-full blur-3xl"></div>
+                <div class="absolute top-1/2 right-0 w-96 h-96 bg-brand-gold rounded-full blur-3xl"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <span class="inline-block text-brand-gold text-xs sm:text-sm font-semibold tracking-widest uppercase border border-brand-gold/30 px-4 py-1.5 rounded-full bg-brand-gold/5">
+                            Nova Remessa • Inventário 2026
+                        </span>
+                        <h1 class="font-serif-title text-3xl sm:text-5xl lg:text-6xl font-normal leading-tight text-white">
+                            Sofisticação, Conforto e <span class="italic gold-gradient-text">Estilo Próprio</span>.
+                        </h1>
+                        <p class="text-gray-300 text-base sm:text-lg max-w-2xl font-light leading-relaxed mx-auto lg:mx-0">
+                            Explore nossa coleção exclusiva contendo 76 modelos únicos entre Lingeries de Luxo, Pijamas Suede, Moda Fitness Premium, Linha Masculina e Acessórios.
+                        </p>
+                        
+                        <div class="pt-2 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <a href="#catalogo" class="bg-gradient-to-r from-brand-gold to-yellow-600 hover:from-yellow-500 hover:to-brand-gold text-brand-dark font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-brand-gold/20 transition-all text-center text-sm uppercase tracking-wider">
+                                Explorar Produtos (<span id="heroCount">76</span>)
+                            </a>
+                            <button onclick="toggleAdminDrawer()" class="border border-brand-gold/40 hover:border-brand-gold text-brand-gold font-medium px-8 py-4 rounded-full transition-all text-center text-sm tracking-wider flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-pen-to-square"></i> Gerenciar Produtos
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 relative">
+                        <div class="relative mx-auto max-w-sm lg:max-w-none">
+                            <div class="absolute -inset-1 bg-gradient-to-r from-brand-gold to-brand-pinkAccent rounded-2xl blur opacity-30"></div>
+                            <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-brand-darkSecondary">
+                                <img src="https://images.unsplash.com/photo-1583846783214-7229a91b20ed?auto=format&fit=crop&w=800&q=80" alt="Iris Intima Highlight" class="w-full h-[420px] object-cover object-top hover:scale-105 transition-transform duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 right-6 text-left">
+                                    <p class="text-xs text-brand-gold tracking-widest uppercase font-semibold">Destaque da Coleção</p>
+                                    <p class="text-lg font-serif-title text-white">Conjuntos & Linha Suede Touch</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CATALOG SECTION -->
+        <section id="catalogo" class="py-16 bg-brand-dark relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="flex flex-col space-y-6 mb-10 border-b border-white/10 pb-6">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                        <div>
+                            <h2 class="text-xs font-semibold tracking-widest uppercase text-brand-gold mb-1">Inventário Atualizado</h2>
+                            <h3 class="font-serif-title text-3xl sm:text-4xl text-white">Catálogo de Produtos</h3>
+                        </div>
+
+                        <!-- SEARCH BAR -->
+                        <div class="relative w-full md:w-72">
+                            <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Buscar por produto..." class="w-full bg-brand-darkSecondary border border-white/15 rounded-full px-4 py-2.5 pl-10 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-brand-gold transition-colors">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-gray-400 text-sm"></i>
+                        </div>
+                    </div>
+
+                    <!-- Category Filters -->
+                    <div class="flex flex-wrap gap-2 pt-2" id="categoryFilters">
+                        <!-- Dynamic Filters inserted by JS -->
+                    </div>
+                </div>
+
+                <!-- Products Counter Info -->
+                <div class="flex justify-between items-center mb-6 text-xs text-gray-400">
+                    <span id="resultCountInfo">Exibindo todos os produtos</span>
+                    <span class="italic text-brand-gold">Preços oficiais extraídos da nota fiscal</span>
+                </div>
+
+                <!-- Products Grid -->
+                <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Products will be dynamically generated by JS -->
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FEATURES / DIFFERENTIALS -->
+        <section id="sobre" class="py-16 bg-brand-darkSecondary border-t border-b border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+                    <div class="p-6 bg-brand-dark/50 rounded-2xl border border-white/5">
+                        <div class="w-12 h-12 bg-brand-gold/10 rounded-full flex items-center justify-center text-brand-gold text-xl mx-auto mb-3">
+                            <i class="fa-solid fa-gem"></i>
+                        </div>
+                        <h4 class="font-serif-title text-lg text-white mb-1">Qualidade Garantida</h4>
+                        <p class="text-gray-400 text-xs">Rendas delicadas, microfibras premium e tecidos suede de toque suave.</p>
+                    </div>
+
+                    <div class="p-6 bg-brand-dark/50 rounded-2xl border border-white/5">
+                        <div class="w-12 h-12 bg-brand-gold/10 rounded-full flex items-center justify-center text-brand-gold text-xl mx-auto mb-3">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                        <h4 class="font-serif-title text-lg text-white mb-1">Entrega Discreta</h4>
+                        <p class="text-gray-400 text-xs">Embalagens especiais perfumadas com proteção total e envio rápido.</p>
+                    </div>
+
+                    <div class="p-6 bg-brand-dark/50 rounded-2xl border border-white/5">
+                        <div class="w-12 h-12 bg-brand-gold/10 rounded-full flex items-center justify-center text-brand-gold text-xl mx-auto mb-3">
+                            <i class="fa-solid fa-tag"></i>
+                        </div>
+                        <h4 class="font-serif-title text-lg text-white mb-1">Preço Justo</h4>
+                        <p class="text-gray-400 text-xs">Valores direto da confecção com transparência total de nota.</p>
+                    </div>
+
+                    <div class="p-6 bg-brand-dark/50 rounded-2xl border border-white/5">
+                        <div class="w-12 h-12 bg-brand-gold/10 rounded-full flex items-center justify-center text-brand-gold text-xl mx-auto mb-3">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <h4 class="font-serif-title text-lg text-white mb-1">Atendimento VIP</h4>
+                        <p class="text-gray-400 text-xs">Suporte exclusivo via WhatsApp para dúvidas de tamanho e modelo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="contato" class="bg-black text-gray-400 border-t border-white/10 pt-12 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+                
+                <div class="space-y-3">
+                    <span class="font-serif-title text-2xl font-bold tracking-wider gold-gradient-text">IRIS ÍNTIMA</span>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Sua marca de referência em moda íntima, loungewear e moda fitness de alta qualidade.
+                    </p>
+                </div>
+
+                <div>
+                    <h5 class="text-white text-xs font-semibold uppercase tracking-wider mb-3">Navegação</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#hero" class="hover:text-brand-gold transition-colors">Início</a></li>
+                        <li><a href="#catalogo" class="hover:text-brand-gold transition-colors">Produtos</a></li>
+                        <li><a href="#sobre" class="hover:text-brand-gold transition-colors">Diferenciais</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-white text-xs font-semibold uppercase tracking-wider mb-3">Contato & Pedidos</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><i class="fa-brands fa-whatsapp text-brand-gold mr-2"></i> (19) 99937-5625</li>
+                        <li><i class="fa-solid fa-phone text-brand-gold mr-2"></i> (19) 3406-4079</li>
+                        <li><i class="fa-solid fa-location-dot text-brand-gold mr-2"></i> Ilha Solteira / Confeccões Tati</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-white text-xs font-semibold uppercase tracking-wider mb-3">Redes Sociais</h5>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-gray-300 hover:bg-brand-gold hover:text-brand-dark transition-all">
+                            <i class="fa-brands fa-instagram text-sm"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-gray-300 hover:bg-brand-gold hover:text-brand-dark transition-all">
+                            <i class="fa-brands fa-facebook-f text-sm"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-gray-300 hover:bg-brand-gold hover:text-brand-dark transition-all">
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="border-t border-white/10 pt-6 text-center text-[11px] text-gray-500 flex flex-col sm:flex-row justify-between items-center gap-3">
+                <p>&copy; 2026 Iris Íntima / Confecções e Comércio Tati Ltda ME. Todos os direitos reservados.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-gray-400">Termos de Uso</a>
+                    <a href="#" class="hover:text-gray-400">Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div id="productModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 p-4">
+        <div class="bg-brand-darkSecondary rounded-2xl max-w-2xl w-full overflow-hidden border border-white/10 shadow-2xl relative transform scale-95 transition-transform duration-300" id="productModalContent">
+            <!-- Dynamic Content loaded via JS -->
+        </div>
+    </div>
+
+    <!-- CART DRAWER / SIDEBAR -->
+    <div id="cartOverlay" onclick="toggleCartDrawer()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <div id="cartDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-brand-darkSecondary border-l border-white/10 z-50 translate-x-full transition-transform duration-300 flex flex-col justify-between">
+        <div class="p-5 border-b border-white/10 flex items-center justify-between">
+            <h3 class="font-serif-title text-xl text-white flex items-center gap-2">
+                <i class="fa-solid fa-bag-shopping text-brand-gold"></i> Seu Carrinho
+            </h3>
+            <button onclick="toggleCartDrawer()" class="text-gray-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div id="cartItemsList" class="p-5 flex-grow overflow-y-auto custom-scrollbar space-y-4">
+            <!-- Items injected by JS -->
+        </div>
+
+        <div class="p-5 border-t border-white/10 bg-brand-dark/80 space-y-4">
+            <div class="flex justify-between items-center text-base">
+                <span class="text-gray-400 text-sm">Subtotal</span>
+                <span id="cartSubtotal" class="font-bold text-lg text-white">R$ 0,00</span>
+            </div>
+            <button onclick="checkout()" class="w-full bg-gradient-to-r from-brand-gold to-yellow-600 hover:from-yellow-500 hover:to-brand-gold text-brand-dark font-bold py-3 rounded-xl uppercase tracking-wider text-xs transition-all shadow-lg">
+                Finalizar Pedido via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- ADMIN DRAWER / MANAGING PANEL -->
+    <div id="adminOverlay" onclick="toggleAdminDrawer()" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <div id="adminDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-brand-dark border-l border-brand-gold/30 z-50 translate-x-full transition-transform duration-300 flex flex-col justify-between">
+        <div class="p-5 border-b border-brand-gold/20 bg-brand-pinkDark/40 flex items-center justify-between">
+            <div>
+                <h3 class="font-serif-title text-lg text-brand-gold flex items-center gap-2">
+                    <i class="fa-solid fa-sliders"></i> Gerenciador de Produtos
+                </h3>
+                <p class="text-[11px] text-gray-400">Adicione, altere ou remova itens do catálogo em tempo real</p>
+            </div>
+            <button onclick="toggleAdminDrawer()" class="text-gray-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="p-5 flex-grow overflow-y-auto custom-scrollbar space-y-6">
+            
+            <!-- ADD/EDIT FORM -->
+            <form id="productForm" onsubmit="handleProductSubmit(event)" class="bg-brand-darkSecondary p-4 rounded-xl border border-white/10 space-y-3">
+                <h4 id="formTitle" class="text-xs font-bold uppercase tracking-wider text-white border-b border-white/10 pb-2">Cadastrar Novo Item</h4>
+                
+                <input type="hidden" id="adminProdId" value="">
+
+                <div>
+                    <label class="block text-[11px] text-gray-300 mb-1">Nome do Produto (conforme nota)</label>
+                    <input type="text" id="adminProdName" required placeholder="Ex: TANGA FIO ELEGANCE" class="w-full bg-brand-dark border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[11px] text-gray-300 mb-1">Preço (R$)</label>
+                        <input type="number" step="0.01" id="adminProdPrice" required placeholder="29.90" class="w-full bg-brand-dark border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] text-gray-300 mb-1">Categoria</label>
+                        <select id="adminProdCategory" class="w-full bg-brand-dark border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
+                            <option value="Lingerie">Lingerie / Tangas</option>
+                            <option value="Sutiãs">Sutiãs / Tops</option>
+                            <option value="Pijamas / Short Doll">Pijamas / Short Doll</option>
+                            <option value="Moda Fitness">Moda Fitness</option>
+                            <option value="Cuecas">Cuecas</option>
+                            <option value="Acessórios & Meias">Acessórios & Meias</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] text-gray-300 mb-1">URL da Imagem</label>
+                    <input type="url" id="adminProdImage" required placeholder="https://images.unsplash.com/..." class="w-full bg-brand-dark border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold">
+                </div>
+
+                <div>
+                    <label class="block text-[11px] text-gray-300 mb-1">Descrição</label>
+                    <textarea id="adminProdDesc" rows="2" placeholder="Detalhes do tecido e acabamento..." class="w-full bg-brand-dark border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-gold"></textarea>
+                </div>
+
+                <div class="flex gap-2 pt-1">
+                    <button type="submit" id="submitFormBtn" class="flex-1 bg-brand-gold hover:bg-brand-goldHover text-brand-dark font-bold py-2 rounded-lg text-xs uppercase tracking-wider transition-colors">
+                        Salvar Item
+                    </button>
+                    <button type="button" onclick="resetAdminForm()" class="bg-gray-700 hover:bg-gray-600 text-white font-medium px-3 py-2 rounded-lg text-xs uppercase transition-colors">
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+
+            <!-- PRODUCTS MANAGEMENT LIST -->
+            <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-gray-400">Itens no Catálogo (<span id="adminListCount">0</span>)</h4>
+                <div id="adminProductList" class="space-y-2 max-h-80 overflow-y-auto custom-scrollbar pr-1">
+                    <!-- Dynamic admin item rows -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // IMAGE ASSETS DIRECTORY ACCORDING TO CATEGORIES AND STYLES
+        const GALLERY = {
+            tangaRenda: "https://images.unsplash.com/photo-1583846783214-7229a91b20ed?auto=format&fit=crop&w=600&q=80",
+            tangaLaser: "https://images.unsplash.com/photo-1596475139705-e7b0d70921c4?auto=format&fit=crop&w=600&q=80",
+            tangaCanelada: "https://images.unsplash.com/photo-1616847220432-3003664c42e4?auto=format&fit=crop&w=600&q=80",
+            calcinhaConfort: "https://images.unsplash.com/photo-1574015974293-817f0ebebb74?auto=format&fit=crop&w=600&q=80",
+            sutiaBojo: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=600&q=80",
+            sutiaRenda: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80",
+            topConfort: "https://images.unsplash.com/photo-1562572159-4efc207f5aff?auto=format&fit=crop&w=600&q=80",
+            shortDollSuede: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80",
+            shortDollCanelado: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80",
+            camisolaTule: "https://images.unsplash.com/photo-1583846783214-7229a91b20ed?auto=format&fit=crop&w=600&q=80",
+            macaquinho: "https://images.unsplash.com/photo-1562572159-4efc207f5aff?auto=format&fit=crop&w=600&q=80",
+            fitnessLegging: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=600&q=80",
+            fitnessConjunto: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&q=80",
+            fitnessTop: "https://images.unsplash.com/photo-1483721063310-e9a6698e0965?auto=format&fit=crop&w=600&q=80",
+            cuecaBoxer: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=600&q=80",
+            cuecaMicrofibra: "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=600&q=80",
+            meiaKit: "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?auto=format&fit=crop&w=600&q=80",
+            sacola: "https://images.unsplash.com/photo-1582966772680-860e3525554a?auto=format&fit=crop&w=600&q=80"
+        };
+
+        // Complete 76 Products with Detailed Custom Descriptions and Specific Visual Assets
+        const rawReceiptItems = [
+            // NOTA 1
+            { name: "TANGA LASER OLIVIA", price: 17.90, category: "Lingerie", img: GALLERY.tangaLaser, desc: "Corte a laser de precisão invisível sob a roupa. Microfibra super macia e respirável para o máximo conforto diário." },
+            { name: "TANGA CANELADA LIZZY", price: 23.90, category: "Lingerie", img: GALLERY.tangaCanelada, desc: "Malha canelada de alta elasticidade com toque aveludado e cós anatômico que se adapta perfeitamente ao corpo." },
+            { name: "CALCA PALA D. CONFORTO", price: 25.60, category: "Lingerie", img: GALLERY.calcinhaConfort, desc: "Modelagem cós alto com pala dupla reforçada que proporciona compressão suave e sustentação firme na cintura." },
+            { name: "CALCINHA CL PALA DUPLA L", price: 25.40, category: "Lingerie", img: GALLERY.calcinhaConfort, desc: "Calcinha clássica com pala lateral larga e dupla camada de microfibra, ideal para quem busca segurança e conforto extra." },
+            { name: "TANGA FIO DUPLO SPLASH", price: 18.50, category: "Lingerie", img: GALLERY.tangaRenda, desc: "Tanga fio dental em tecido duplo com acabamento sem costura na parte posterior para zero marcas nas roupas." },
+            { name: "TANGA ANA LUZ (LP)", price: 24.60, category: "Lingerie", img: GALLERY.tangaLaser, desc: "Detalhes em renda sofisticada e laterais reguláveis finas. Proporciona caimento delicado e sensual." },
+            { name: "TANGA RENDA HILARY", price: 19.80, category: "Lingerie", img: GALLERY.tangaRenda, desc: "Confeccionada integralmente em renda floral hipoalergênica com elástico super macio que não aperta as coxas." },
+            { name: "TANGA CANELADA JAQUELINE", price: 18.30, category: "Lingerie", img: GALLERY.tangaCanelada, desc: "Estilo casual moderno em algodão canelado respirável. Modelagem jovial com toque extremamente suave." },
+            { name: "TANGA FIO DRIKA (1110)", price: 13.80, category: "Lingerie", img: GALLERY.tangaRenda, desc: "Tanga fio dental minimalista em microfibra leve com forro 100% algodão para máxima higienização." },
+            { name: "TANGA FIO DUPLO CELESTE", price: 24.30, category: "Lingerie", img: GALLERY.tangaRenda, desc: "Design sensual com tecido de microfibra dupla, trazendo toque macio e excelente elasticidade para momentos especiais." },
+            { name: "TANGA FIO DUPLO DAVILA", price: 22.40, category: "Lingerie", img: GALLERY.tangaLaser, desc: "Tanga com recorte geométrico nas laterais e costas duplas sem elástico exposto, garantindo extremo conforto." },
+            { name: "TANGA F. LOVE LASER", price: 18.50, category: "Lingerie", img: GALLERY.tangaLaser, desc: "Acabamento tecnológico a laser com gravação delicada de estampa e ajuste imperceptível sob calças e vestidos." },
+            { name: "KIT MEIA MASC. CANO MEDIO", price: 31.40, category: "Acessórios & Meias", img: GALLERY.meiaKit, desc: "Kit com 3 pares de meias masculinas cano médio em algodão penteado reforçado no calcanhar e ponta." },
+            { name: "KIT MEIA FEM. CANO MEDIO", price: 31.40, category: "Acessórios & Meias", img: GALLERY.meiaKit, desc: "Kit com 3 pares de meias femininas confortáveis com punho macio e costura plana para evitar atrito nos pés." },
+            { name: "SAMBA CANCAO SUEDE RESEN", price: 31.40, category: "Pijamas / Short Doll", img: GALLERY.shortDollSuede, desc: "Short masculino estilo samba canção em tecido suede ultramacio de secagem rápida com elástico flexível na cintura." },
+            { name: "CALCA LEGGING FLANELADA", price: 75.25, category: "Moda Fitness", img: GALLERY.fitnessLegging, desc: "Legging fitness térmica flanelada internamente com alta gramatura e opacidade garantida contra transparência." },
+            { name: "SOUTIEN BOJO REF. CORALI", price: 59.90, category: "Sutiãs", img: GALLERY.sutiaBojo, desc: "Sutiã de sustentação reforçada com bojo estruturado, aros anatômicos e alças largas reguláveis." },
+            { name: "CONJUNTO TOP FAIXA RENDA", price: 26.20, category: "Lingerie", img: GALLERY.sutiaRenda, desc: "Conjunto cropped em estilo faixa rendada com calcinha combinando, ideal para compor looks aparentes modernos." },
+            { name: "CUECA BOX RALPH (001)", price: 18.50, category: "Cuecas", img: GALLERY.cuecaBoxer, desc: "Cueca boxer masculina em algodão com elastano e elastique de cós personalizado com ajuste anatômico." },
+            { name: "CUECA BOX MARCIO (8049)", price: 24.90, category: "Cuecas", img: GALLERY.cuecaMicrofibra, desc: "Cueca boxer em microfibra macia e antissuor que reduz o atrito entre as pernas durante a rotina diária." },
+            { name: "CUECA BOX PLUS SANDRO", price: 28.90, category: "Cuecas", img: GALLERY.cuecaBoxer, desc: "Linha Plus Size com gancho alongado e pernas mais compridas em algodão nobre de alta durabilidade." },
+            { name: "CONJUNTO FIO DUPLO ALEXI", price: 72.70, category: "Lingerie", img: GALLERY.sutiaRenda, desc: "Conjunto luxo com sutiã rendado de aro e tanga fio duplo. Peça refinada para ocasiões marcantes." },
+            { name: "CONJUNTO ARIANA", price: 71.90, category: "Lingerie", img: GALLERY.sutiaRenda, desc: "Conjunto sensual de lingerie em renda guipir com transparências elegantes e caimento sob medida." },
+            { name: "SHORT DOOL INF. SUEDE BI", price: 34.70, category: "Pijamas / Short Doll", img: GALLERY.shortDollSuede, desc: "Pijama infantil de short doll confeccionado em tecido suede aveludado, fresco e muito aconchegante." },
+            { name: "SOUTIEN BOJAO LIDY", price: 68.50, category: "Sutiãs", img: GALLERY.sutiaBojo, desc: "Sutiã com bojo moldado profundo em tamanhos especiais que acomodam os seios sem apertar os ombros." },
+            { name: "SOUTIEN BOJO MARIANE", price: 56.80, category: "Sutiãs", img: GALLERY.sutiaBojo, desc: "Modelagem clássica diária com bojo macio, cobertura total do tórax e fecho quádruplo nas costas." },
+            { name: "SOUTIEN REF. ELENICE (12)", price: 45.60, category: "Sutiãs", img: GALLERY.topConfort, desc: "Sutiã rendado sem bojo com forro em tule, priorizando a forma natural do busto com sustentação por elástico denso." },
+            { name: "TOP SARAH", price: 49.00, category: "Sutiãs", img: GALLERY.topConfort, desc: "Top multifuncional em microfibra sem costura que proporciona efeito 'segunda pele' com suporte suave." },
+            { name: "SOUTIEN SOFT BIANCA", price: 55.50, category: "Sutiãs", img: GALLERY.sutiaBojo, desc: "Tecnologia Soft Touch de toque aveludado que garante zero incômodo durante o uso prolongado." },
+            { name: "SHORT DOOL ONDULADO SUED", price: 51.20, category: "Pijamas / Short Doll", img: GALLERY.shortDollSuede, desc: "Pijama feminino com acabamentos ondulados 'frufru' na barra e regata de caimento leve e confortável." },
+            { name: "BABY DOOL CAMISETA SUEDI", price: 64.00, category: "Pijamas / Short Doll", img: GALLERY.shortDollSuede, desc: "Baby doll modelo camiseta oversized em suede ultra fofo, unindo praticidade e extrema sensação de relaxamento." },
+            { name: "SHORT DOOL CANELADO ANIE", price: 56.90, category: "Pijamas / Short Doll", img: GALLERY.shortDollCanelado, desc: "Conjunto de pijama curto em ribana canelada macia com detalhes em botões decorativos na blusa." },
+            { name: "SHORT DOOL AD. SONINHO", price: 63.90, category: "Pijamas / Short Doll", img: GALLERY.shortDollSuede, desc: "Short doll adulto confortável para noites de sono tranquilas com tecido leve de secagem ultrarrápida." },
+            { name: "SHORT DOOL PLUS SUEDE VI", price: 81.30, category: "Pijamas / Short Doll", img: GALLERY.shortDollSuede, desc: "Modelagem Plus Size ampla com short de elástico macio na cintura e blusa soltinha em tecido suede." },
+            { name: "CAMISOLA SUEDE SOPHIA (3)", price: 62.30, category: "Pijamas / Short Doll", img: GALLERY.camisolaTule, desc: "Camisola curta fluida em toque suede com alças finas reguláveis e decote delicado nas costas." },
+            { name: "CAMISOLA PLUS SUEDE PADO", price: 63.20, category: "Pijamas / Short Doll", img: GALLERY.camisolaTule, desc: "Camisola Plus Size em tecido aconchegante de textura macia e caimento reto extremamente confortável." },
+            { name: "SACOLA PERSONALIZADA", price: 9.99, category: "Acessórios & Meias", img: GALLERY.sacola, desc: "Sacola presenteável exclusiva da marca Iris Íntima em papel cartão reforçado e alças de fita de cetim." },
+            { name: "TANGA FIO DUPLO DAY (157)", price: 22.40, category: "Lingerie", img: GALLERY.tangaRenda, desc: "Tanga com recorte posterior duplo e laterais de elasticidade progressiva que se moldam sem apertar." },
+            { name: "CAMISOLA TULE AMANDA", price: 59.80, category: "Pijamas / Short Doll", img: GALLERY.camisolaTule, desc: "Camisola sensual em tule transparente com detalhes de renda no busto e caimento levemente esvoaçante." },
+            { name: "CAMISOLA TULE ISIS (6046)", price: 67.20, category: "Pijamas / Short Doll", img: GALLERY.camisolaTule, desc: "Camisola romântica com fenda lateral elegante, decote trabalhado em renda e forro macio no busto." },
+            { name: "TANGA FIO DUPLO VINI (43)", price: 16.90, category: "Lingerie", img: GALLERY.tangaLaser, desc: "Tanga fio básica de uso diário em microfibra toque de seda com acabamento duplo na cintura." },
+            { name: "TOP C/ BOJO REMOVIVEL RA", price: 58.10, category: "Moda Fitness", img: GALLERY.fitnessTop, desc: "Top esportivo de média sustentação com entrada para bojo removível e alças cruzadas nas costas." },
+
+            // NOTA 2
+            { name: "CONJUNTO TOP TOTAL CONFO", price: 51.50, category: "Lingerie", img: GALLERY.topConfort, desc: "Conjunto sem aros nem bojos rígidos, priorizando a máxima liberdade de movimento e bem-estar." },
+            { name: "SHORT DOOL BARAH (2310)", price: 64.50, category: "Pijamas / Short Doll", img: GALLERY.shortDollSuede, desc: "Short doll elegante com detalhes em viés contrastante e tecido toque de pelúcia leve." },
+            { name: "TOP PLUS M. FIBRA C/ BOJ", price: 64.20, category: "Sutiãs", img: GALLERY.sutiaBojo, desc: "Top Plus Size estruturado com bojo macio de alta cobertura e laterais largas modeladoras." },
+            { name: "TANGA FIO PLAYBOY", price: 19.90, category: "Lingerie", img: GALLERY.tangaRenda, desc: "Design arrojado com detalhes de tiras strappy nas laterais e frente de renda com transparência." },
+            { name: "TANGA FIO BRILHO LOVE", price: 18.00, category: "Lingerie", img: GALLERY.tangaRenda, desc: "Tanga com elástico acetinado reluzente e microfibra acetinada de toque luxuoso." },
+            { name: "TANGA FIO PANDORA", price: 18.99, category: "Lingerie", img: GALLERY.tangaRenda, desc: "Tanga fio dental em renda com motivos florais e acento em pingente folheado no cós." },
+            { name: "TANGA FIO DUPLO MARIA EL", price: 21.50, category: "Lingerie", img: GALLERY.tangaLaser, desc: "Modelagem anatômica que abraça as curvas femininas com acabamento duplo que não marca o quadril." },
+            { name: "TANGA FIO AMORECO (73)", price: 19.80, category: "Lingerie", img: GALLERY.tangaRenda, desc: "Modelagem delicada e sensual com laço de cetim frontal e elasticidade ideal para o dia a dia." },
+            { name: "TANGA FIO GLORIA (08)", price: 13.99, category: "Lingerie", img: GALLERY.tangaLaser, desc: "Peça essencial no guarda-roupa: tanga fio leve, prática e com secagem rápida." },
+            { name: "TANGA FIO JOIA SENSUALY", price: 29.90, category: "Lingerie", img: GALLERY.tangaRenda, desc: "Lingerie premium com aplicação de bijuteria exclusiva nas laterais e renda francesa requintada." },
+            { name: "SHORT DOOL CROPPED ROSAL", price: 62.50, category: "Pijamas / Short Doll", img: GALLERY.shortDollSuede, desc: "Conjunto pijama estilo cropped moderno com shortinho de cós elástico e caimento solto." },
+            { name: "SHORT DOOL SUEDE MIRANDA", price: 80.49, category: "Pijamas / Short Doll", img: GALLERY.shortDollSuede, desc: "Pijama em toque Suede Premium extremamente sedoso ao toque com estampas exclusivas." },
+            { name: "SHORT DOOL CANELADO SUZA", price: 75.30, category: "Pijamas / Short Doll", img: GALLERY.shortDollCanelado, desc: "Short doll sofisticado em malha canelada de viscose respirável para noites aconchegantes." },
+            { name: "SHORT DOOL SUEDE CARLA (", price: 62.50, category: "Pijamas / Short Doll", img: GALLERY.shortDollSuede, desc: "Conjunto confortável e leve, perfeito para relaxar nos dias de descanso com toque aveludado." },
+            { name: "TANGA FIO SEXY CHERRY", price: 20.70, category: "Lingerie", img: GALLERY.tangaRenda, desc: "Tanga em renda vermelha marcante com abertura nas costas e ajuste impecável ao corpo." },
+            { name: "TANGA FIO SEXY KATE (893", price: 18.50, category: "Lingerie", img: GALLERY.tangaRenda, desc: "Modelagem provocante em renda trabalhada com elásticos duplos ajustáveis nas laterais." },
+            { name: "TANGA FIO TENTACAO (170)", price: 20.19, category: "Lingerie", img: GALLERY.tangaRenda, desc: "Tanga com transparências pontuais e recortes modernos para realçar a silhueta." },
+            { name: "CAMISOLA TULE SENSUALY (", price: 75.29, category: "Pijamas / Short Doll", img: GALLERY.camisolaTule, desc: "Camisola longa em tule esvoaçante com bojo rendado e fenda lateral de efeito deslumbrante." },
+            { name: "MACAQUINHO RESENHA LILY", price: 123.90, category: "Pijamas / Short Doll", img: GALLERY.macaquinho, desc: "Macaquinho pijama em malha nobre com regulagem na cintura e toque aveludado único." },
+            { name: "MACAQUINHO RESENHA ADELE", price: 124.25, category: "Pijamas / Short Doll", img: GALLERY.macaquinho, desc: "Macaquinho loungewear fluido e chique, adaptado tanto para dormir quanto para ficar em casa com estilo." },
+            { name: "CONJ. FITNESS PREMIUM CA", price: 209.90, category: "Moda Fitness", img: GALLERY.fitnessConjunto, desc: "Conjunto fitness premium de altíssima gramatura: legging cintura alta modeladora e top de alta sustentação." },
+            { name: "CONJ. FITNESS PREMIUM GA", price: 175.90, category: "Moda Fitness", img: GALLERY.fitnessConjunto, desc: "Conjunto para treinos intensos com compressão muscular na medida certa e tecnologia de absorção de suor." },
+            { name: "CUECA BOX RES. NEY (8056", price: 24.99, category: "Cuecas", img: GALLERY.cuecaBoxer, desc: "Cueca boxer em microfibra tecnológica respirável com elástico anatômico que não dobra no abdômen." },
+            { name: "CUECA BOX SUEDE DELTA", price: 23.20, category: "Cuecas", img: GALLERY.cuecaMicrofibra, desc: "Confeccionada em micro-suede macio, proporciona toque aveludado e flexibilidade total de movimentos." },
+            { name: "CUECA BOX M. FIBRA TIEGO", price: 35.60, category: "Cuecas", img: GALLERY.cuecaMicrofibra, desc: "Cueca premium com acabamento sem costura lateral para evitar qualquer tipo de atrito durante esportes ou trabalho." },
+            { name: "CUECA BOX YUDI (818)", price: 25.40, category: "Cuecas", img: GALLERY.cuecaBoxer, desc: "Modelo clássico masculino em modal ecológico com toque geladinho e secagem rápida." },
+            { name: "CUECA BOX CANELADA GUILH", price: 24.50, category: "Cuecas", img: GALLERY.cuecaBoxer, desc: "Cueca em tecido canelado ultra elástico que garante caimento firme e suporte anatômico impecável." },
+            { name: "CUECA BOX OLIVER", price: 25.49, category: "Cuecas", img: GALLERY.cuecaBoxer, desc: "Cueca de corte moderno com pernas levemente alongadas para evitar que a peça enrole na coxa." },
+            { name: "CONJ. FITNESS JACQUARD (", price: 173.90, category: "Moda Fitness", img: GALLERY.fitnessConjunto, desc: "Conjunto fitness em tecido Jacquard texturizado em alto relevo que disfarça imperfeições e modela a cintura." },
+            { name: "CUECA BOX NANDO", price: 27.50, category: "Cuecas", img: GALLERY.cuecaBoxer, desc: "Cueca confeccionada em algodão egípcio com elastano para quem prioriza toque natural e transpirabilidade." },
+            { name: "CUECA BOX COTTON VICENZO", price: 32.99, category: "Cuecas", img: GALLERY.cuecaBoxer, desc: "Linha de luxo masculina em Cotton penteado com elástico de cós bordado em fios acetinados." },
+            { name: "SHORT RESENHA SARAH (700", price: 92.90, category: "Moda Fitness", img: GALLERY.fitnessLegging, desc: "Short fitness duplo para corrida com bolso interno para celular e tecido de secagem rápida." },
+            { name: "CALCA RESENHA AGATA (635", price: 139.90, category: "Moda Fitness", img: GALLERY.fitnessLegging, desc: "Calça bailarina/flare fitness de cós anatômico alto e compressão moderada para treinos e caminhadas." },
+            { name: "TOP RESENHA ANNE (638)", price: 69.90, category: "Moda Fitness", img: GALLERY.fitnessTop, desc: "Top fitness com decote quadrado, sustentação reforçada por elástico interno e visual contemporâneo." },
+            { name: "CONJ. FITNESS PREMIUM AM", price: 159.90, category: "Moda Fitness", img: GALLERY.fitnessConjunto, desc: "Conjunto esportivo com top com bojo e bermuda ciclista de cós alto sem costura frontal." }
+        ];
+
+        // Format items with IDs & rich descriptions
+        let products = rawReceiptItems.map((item, index) => ({
+            id: index + 1,
+            name: item.name,
+            price: item.price,
+            category: item.category,
+            image: item.img,
+            description: item.desc
+        }));
+
+        let cart = [];
+        let activeCategory = 'Todos';
+        let searchQuery = '';
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCategories();
+            renderProducts();
+            renderAdminProductsList();
+            setupMobileMenu();
+            updateCountBadge();
+        });
+
+        // Mobile Menu Toggle
+        function setupMobileMenu() {
+            const btn = document.getElementById('mobileMenuBtn');
+            const menu = document.getElementById('mobileMenu');
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+        }
+
+        // Render Categories Filters
+        function renderCategories() {
+            const categories = ['Todos', ...new Set(products.map(p => p.category))];
+            const container = document.getElementById('categoryFilters');
+            
+            container.innerHTML = categories.map(cat => `
+                <button 
+                    onclick="filterCategory('${cat}')"
+                    class="px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
+                        activeCategory === cat 
+                            ? 'bg-brand-gold text-brand-dark shadow-md' 
+                            : 'bg-brand-darkSecondary text-gray-300 hover:border-brand-gold hover:text-brand-gold border border-white/10'
+                    }"
+                >
+                    ${cat}
+                </button>
+            `).join('');
+        }
+
+        function filterCategory(category) {
+            activeCategory = category;
+            renderCategories();
+            renderProducts();
+        }
+
+        function handleSearch() {
+            searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+            renderProducts();
+        }
+
+        // Render Products Grid
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            const resultInfo = document.getElementById('resultCountInfo');
+
+            let filtered = products.filter(p => {
+                const matchesCategory = activeCategory === 'Todos' || p.category === activeCategory;
+                const matchesSearch = p.name.toLowerCase().includes(searchQuery);
+                return matchesCategory && matchesSearch;
+            });
+
+            resultInfo.innerText = `Exibindo ${filtered.length} de ${products.length} produtos`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-16 text-center text-gray-400">
+                        <i class="fa-solid fa-box-open text-4xl mb-3 text-brand-gold/40"></i>
+                        <p class="text-base">Nenhum produto encontrado para sua busca.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(product => `
+                <div class="group bg-brand-cardBg rounded-xl overflow-hidden border border-white/5 hover:border-brand-gold/40 transition-all duration-500 flex flex-col justify-between gold-border-glow">
+                    <div class="relative overflow-hidden cursor-pointer h-64" onclick="openProductModal(${product.id})">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-2.5 left-2.5 bg-brand-dark/90 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wider text-brand-gold border border-brand-gold/30">
+                            ${product.category}
+                        </div>
+                    </div>
+
+                    <div class="p-4 flex flex-col flex-grow justify-between space-y-3">
+                        <div>
+                            <h4 onclick="openProductModal(${product.id})" class="font-serif-title text-sm font-semibold text-white group-hover:text-brand-gold transition-colors cursor-pointer line-clamp-1">
+                                ${product.name}
+                            </h4>
+                            <p class="text-[11px] text-gray-400 mt-1 line-clamp-2">${product.description}</p>
+                        </div>
+
+                        <div class="pt-2 border-t border-white/5 flex items-center justify-between">
+                            <div>
+                                <span class="text-[9px] text-gray-400 block uppercase">Preço Nota</span>
+                                <span class="text-base font-bold text-white">R$ ${product.price.toFixed(2).replace('.', ',')}</span>
+                            </div>
+
+                            <button onclick="addToCart(${product.id})" class="bg-brand-gold/10 hover:bg-brand-gold text-brand-gold hover:text-brand-dark px-3 py-1.5 rounded-lg text-xs font-semibold tracking-wider transition-all duration-300 flex items-center gap-1.5">
+                                <i class="fa-solid fa-cart-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Product Modal Logic
+        function openProductModal(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            const modal = document.getElementById('productModal');
+            const content = document.getElementById('productModalContent');
+
+            content.innerHTML = `
+                <button onclick="closeProductModal()" class="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-brand-gold hover:text-brand-dark transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <div class="h-64 md:h-full">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-[10px] font-semibold tracking-widest text-brand-gold uppercase">${product.category}</span>
+                            <h3 class="font-serif-title text-xl text-white mt-1 mb-2">${product.name}</h3>
+                            <p class="text-2xl font-bold text-white mb-3">R$ ${product.price.toFixed(2).replace('.', ',')}</p>
+                            <p class="text-xs text-gray-300 leading-relaxed">${product.description}</p>
+                        </div>
+
+                        <div class="space-y-3 pt-3 border-t border-white/10">
+                            <div class="flex items-center gap-2 text-xs text-gray-400">
+                                <i class="fa-solid fa-truck text-brand-gold"></i> Envio imediato e embalagem discreta.
+                            </div>
+                            <button onclick="addToCart(${product.id}); closeProductModal();" class="w-full bg-gradient-to-r from-brand-gold to-yellow-600 hover:from-yellow-500 hover:to-brand-gold text-brand-dark font-bold py-2.5 rounded-xl uppercase tracking-wider text-xs transition-all shadow-md">
+                                Adicionar ao Carrinho
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-95');
+            content.classList.add('scale-100');
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('productModal');
+            const content = document.getElementById('productModalContent');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+        }
+
+        // Cart Functionality
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            if (!product) return;
+
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartUI();
+            toggleCartDrawer(true);
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+        }
+
+        function updateCartQuantity(id, change) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) removeFromCart(id);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cartCountBadge');
+            const list = document.getElementById('cartItemsList');
+            const subtotalEl = document.getElementById('cartSubtotal');
+
+            const totalItems = cart.reduce((acc, i) => acc + i.quantity, 0);
+            const totalAmount = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
+
+            // Badge Update
+            badge.innerText = totalItems;
+            badge.style.opacity = totalItems > 0 ? '1' : '0';
+
+            // List Update
+            if (cart.length === 0) {
+                list.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-gray-500 text-center py-12">
+                        <i class="fa-solid fa-bag-shopping text-4xl mb-3 text-gray-600"></i>
+                        <p class="text-sm">Seu carrinho está vazio.</p>
+                    </div>
+                `;
+            } else {
+                list.innerHTML = cart.map(item => `
+                    <div class="flex gap-3 p-3 bg-brand-dark rounded-xl border border-white/5 items-center">
+                        <img src="${item.image}" alt="${item.name}" class="w-14 h-14 object-cover rounded-lg flex-shrink-0">
+                        <div class="flex-grow">
+                            <h5 class="text-xs font-semibold text-white line-clamp-1">${item.name}</h5>
+                            <span class="text-xs text-brand-gold font-bold">R$ ${item.price.toFixed(2).replace('.', ',')}</span>
+                            <div class="flex items-center gap-2 mt-1.5">
+                                <button onclick="updateCartQuantity(${item.id}, -1)" class="w-5 h-5 rounded bg-brand-darkSecondary border border-white/10 text-white flex items-center justify-center text-xs hover:border-brand-gold">-</button>
+                                <span class="text-xs text-white px-1">${item.quantity}</span>
+                                <button onclick="updateCartQuantity(${item.id}, 1)" class="w-5 h-5 rounded bg-brand-darkSecondary border border-white/10 text-white flex items-center justify-center text-xs hover:border-brand-gold">+</button>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-gray-500 hover:text-red-400 p-2">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            subtotalEl.innerText = `R$ ${totalAmount.toFixed(2).replace('.', ',')}`;
+        }
+
+        function toggleCartDrawer(forceOpen = false) {
+            const drawer = document.getElementById('cartDrawer');
+            const overlay = document.getElementById('cartOverlay');
+
+            if (forceOpen || drawer.classList.contains('translate-x-full')) {
+                drawer.classList.remove('translate-x-full');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                return;
+            }
+            
+            let message = "Olá! Gostaria de fazer o pedido dos seguintes itens da Iris Íntima:\n\n";
+            cart.forEach(item => {
+                message += `- ${item.quantity}x ${item.name} (R$ ${item.price.toFixed(2)})\n`;
+            });
+            const total = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
+            message += `\n*Total: R$ ${total.toFixed(2)}*`;
+
+            const encoded = encodeURIComponent(message);
+            window.open(`https://wa.me/5519999375625?text=${encoded}`, '_blank');
+        }
+
+        // ADMIN PANEL LOGIC
+        function toggleAdminDrawer() {
+            const drawer = document.getElementById('adminDrawer');
+            const overlay = document.getElementById('adminOverlay');
+
+            if (drawer.classList.contains('translate-x-full')) {
+                drawer.classList.remove('translate-x-full');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        function renderAdminProductsList() {
+            const list = document.getElementById('adminProductList');
+            document.getElementById('adminListCount').innerText = products.length;
+
+            list.innerHTML = products.map(p => `
+                <div class="flex items-center justify-between p-2.5 bg-brand-darkSecondary rounded-lg border border-white/5 hover:border-brand-gold/20">
+                    <div class="flex items-center gap-2.5 overflow-hidden">
+                        <img src="${p.image}" class="w-8 h-8 object-cover rounded-md flex-shrink-0">
+                        <div class="truncate">
+                            <p class="text-xs font-semibold text-white truncate">${p.name}</p>
+                            <p class="text-[10px] text-gray-400">R$ ${p.price.toFixed(2)} • ${p.category}</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-1.5 flex-shrink-0">
+                        <button onclick="editProduct(${p.id})" class="text-brand-gold hover:text-white p-1 text-xs">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button onclick="deleteProduct(${p.id})" class="text-red-400 hover:text-red-300 p-1 text-xs">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function handleProductSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('adminProdId').value;
+            const name = document.getElementById('adminProdName').value;
+            const price = parseFloat(document.getElementById('adminProdPrice').value);
+            const category = document.getElementById('adminProdCategory').value;
+            const image = document.getElementById('adminProdImage').value;
+            const description = document.getElementById('adminProdDesc').value || "Produto exclusivo Confecções Tati.";
+
+            if (id) {
+                // Edit product
+                const index = products.findIndex(p => p.id == id);
+                if (index !== -1) {
+                    products[index] = { id: parseInt(id), name, price, category, image, description };
+                }
+            } else {
+                // Add new product
+                const newProduct = {
+                    id: Date.now(),
+                    name,
+                    price,
+                    category,
+                    image,
+                    description
+                };
+                products.unshift(newProduct);
+            }
+
+            resetAdminForm();
+            renderCategories();
+            renderProducts();
+            renderAdminProductsList();
+            updateCountBadge();
+        }
+
+        function editProduct(id) {
+            const p = products.find(prod => prod.id === id);
+            if (!p) return;
+
+            document.getElementById('formTitle').innerText = "Editar Item";
+            document.getElementById('adminProdId').value = p.id;
+            document.getElementById('adminProdName').value = p.name;
+            document.getElementById('adminProdPrice').value = p.price;
+            document.getElementById('adminProdCategory').value = p.category;
+            document.getElementById('adminProdImage').value = p.image;
+            document.getElementById('adminProdDesc').value = p.description;
+            document.getElementById('submitFormBtn').innerText = "Atualizar Item";
+        }
+
+        function deleteProduct(id) {
+            products = products.filter(p => p.id !== id);
+            renderCategories();
+            renderProducts();
+            renderAdminProductsList();
+            updateCountBadge();
+        }
+
+        function resetAdminForm() {
+            document.getElementById('formTitle').innerText = "Cadastrar Novo Item";
+            document.getElementById('productForm').reset();
+            document.getElementById('adminProdId').value = "";
+            document.getElementById('submitFormBtn').innerText = "Salvar Item";
+        }
+
+        function updateCountBadge() {
+            document.getElementById('heroCount').innerText = products.length;
+        }
+    </script>
+</body>
+</html>
